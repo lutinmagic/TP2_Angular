@@ -1,0 +1,21 @@
+.containerAssigneTache{
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  width: 400px;
+  margin-right: -200px;
+  margin-left: -200px;
+  background-color: aqua;
+}
+
+.table{
+  border-style: solid;
+  border-color: black;
+  text-align: left;
+}
+
+.jumbotron{
+  text-align: center;
+  font-size: xxx-large;
+}
+
