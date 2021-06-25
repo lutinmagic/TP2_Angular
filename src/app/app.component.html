@@ -1,38 +1,102 @@
 <div class="container">
+
   <div class="jumbotron">Assignation de tâches V0.01</div>
-  <div class="containerAssigneTache" *ngIf="tacheToAssigne">
+
+  <div class="containerTaches">
+    <h1>Liste des taches</h1>
     <table class="table">
       <tr>
-        <th>Prenom</th>
-        <th>Nom</th>
+        <th>Nom de la tâche</th>
+        <th>Etat</th>
+        <th>Numéro d'ordre</th>
+        <th>Attribution</th>
       </tr>
-      <tr *ngFor="let user of Users">
-        <th>{{user.prenom}}</th>
-        <th>{{user.prenom}}</th>
-        <th><a class="btn btn-primary" href="#" role="button">Assigner taches</a></th>
+      <tr *ngFor="let tache of Taches" [ngStyle]="{'background-color':getBgColor(tache)}">
+        <td>{{tache.nom}}</td>
+        <td>{{tache.etat}}</td>
+        <td>{{tache.numeroOrdre}}</td>
+        <td>{{tache.attribution}}</td>
+        <td><a class="btn btn-primary btnColor" (click)="openEditFen(tache)" role="button">Edit</a></td>
+        <td><a class="btn btn-primary btnColor" (click)="deleteItem(tache)" role="button">Delete</a></td>
       </tr>
     </table>
+    <a class="btn btn-primary btnColor" (click)="affichePageAjoutTache()" role="button">Ajouter une tache.</a>
   </div>
 
-
-  <div>
-
-
-
-
-
-
+  <div class="ajouterTache" *ngIf="fenAjouter">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-4">Nom de la tâche</div>
+        <div class="col-md-8"><input [(ngModel)]="NomTacheform"></div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-md-4">Status</div>
+        <div class="col-md-8">
+          <select name="etats" id="etats" [(ngModel)]="etatSelected">
+            <option value="À faire">À faire</option>
+            <option value="En cours">En cours</option>
+            <option value="Faite">Faite</option>
+          </select>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-md-4">Assigner la tâche à : </div>
+        <div class="col-md-8">
+          <select name="usersSelect" id="usersSelect" [(ngModel)]="usersSelected">
+            <option *ngFor="let user of Users" [ngValue]="user.prenom + ' ' + user.nom" >{{ user.prenom + " " + user.nom}}</option>
+          </select>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-md-4">Numéro de priorité</div>
+        <div class="col-md-8"><input type="number" id="numberPriority" min="1" max="100" step="1" [(ngModel)]="numberPrioritySelected"></div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-md-12">
+          <a class="btn btn-primary btnColor" (click)="ajouterTache()" role="button">Ajouter la tâche.</a>
+          <a class="btn btn-primary btnColor btnQuit" (click)="fermerFenAjoutTache()" role="button">Fermer</a>
+        </div>
+      </div>
+    </div>
   </div>
 
+  <div class="containerEdit" *ngIf="tacheToEdit">
+    <div class="container-fluid">
+      <div class="row">
 
-
-
-
-
-
-
-
-
+        <table class="table">
+          <tr>
+            <th>Nom de la tâche</th>
+            <th>Etat</th>
+            <th>Numéro d'ordre</th>
+            <th>Attribution</th>
+          </tr>
+          <tr>
+            <td><input [(ngModel)]="tacheToEdit.nom"></td>
+            <td>
+              <select name="etatsEdit" id="etatsEdit" selected="selected" [(ngModel)]="tacheToEdit.etat">
+                <option value="À faire">À faire</option>
+                <option value="En cours">En cours</option>
+                <option value="Faite">Faite</option>
+              </select>
+            </td>
+            <td><input type="number" id="numberPriorityEdit" min="1" max="100" step="1" [(ngModel)]="tacheToEdit.numeroOrdre"></td>
+            <td>
+              <div>Tache présentement assigné à : <b>{{tacheToEdit.attribution}}</b></div>
+              <select name="usersSelectEdit" id="usersSelectEdit" [(ngModel)]="tacheToEdit.attribution">
+                <option *ngFor="let user of Users" [ngValue]="user.prenom + ' ' + user.nom" >{{ user.prenom + " " + user.nom}}</option>
+              </select>
+            </td>
+          </tr>
+        </table>
+        <a class="btn btn-primary btnColor btnQuit" (click)="fermeEditFen()" role="button">Fermer</a>
+      </div>
+    </div>
+  </div>
 </div>
 
 
