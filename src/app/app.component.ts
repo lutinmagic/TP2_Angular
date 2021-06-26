@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {User} from "./user";
-import {USERS} from "./data-users";
 import {UsersService} from "./users.service";
 import {Tache} from "./Tache";
 import {TACHES} from "./data-taches";
@@ -15,11 +14,9 @@ export class AppComponent implements OnInit{
   title = 'AppTp2';
   Users?: User[];
   Taches?: Tache[];
-  nomTache?: string;
 
   TachesService : TachesService
   UsersService : UsersService;
-  tacheToAssigne = null;
 
   // infos des différents ngModel
   NomTacheform? : string;
@@ -28,7 +25,6 @@ export class AppComponent implements OnInit{
   numberPrioritySelected? : number;
 
   fenAjouter: boolean = false;
-  tachePresente? : Tache;
   tacheToEdit?: Tache = undefined;
 
   constructor(service: UsersService, service2: TachesService) {
